@@ -34,7 +34,7 @@ public class MemberController {
 
     }
 
-//远离那几个傻逼
+
 //    @PostMapping("/add")
 //    public Member Add(){
 //        Member m1 = new Member();
@@ -46,3 +46,4 @@ public class MemberController {
 //        return m1;
 //    }
 }
+
