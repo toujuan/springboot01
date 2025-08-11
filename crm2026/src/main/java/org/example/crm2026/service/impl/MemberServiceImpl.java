@@ -1,6 +1,8 @@
 package org.example.crm2026.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.example.crm2026.dao.MemberMapper;
 import org.example.crm2026.pojo.Member;
@@ -19,13 +21,26 @@ public class MemberServiceImpl implements MemberService {
         this.memberMapper = memberMapper;
     }
 
-    @Override
     public Page<Member> findAll(Page<Member> page, MemberSearchBean member) {
-        QueryWrapper<Member> wrapper = new QueryWrapper<>();
 
-        if (member != null && member.getName() != null && !member.getName().isEmpty()) {
-            wrapper.like("name", member.getName());
-        }
-        return memberMapper.selectPage(page, wrapper);
+        return memberMapper.findAll(page, member);
     }
+
+    @Override
+    public boolean add(Member member) {
+        return memberMapper.insert(member)==1;
+    }
+
+    @Override
+    public int delete(List<Integer> ids) {
+        return memberMapper.deleteByIds(ids);
+    }
+
+    @Override
+    public int gai(Member member) {
+
+        return memberMapper.updateById(member);
+    }
+
+
 }
