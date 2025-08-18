@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.gbcssubject.dao.CourseMapper">
+    <resultMap id="CourseMap" type="Course">
+        <!--一对一关联-->
+        <association column="subject_id" property="subject"
+                     select="com.situ.gbcssubject.dao.SubjectMapper.findById" />
+    </resultMap>
+
+    <select id="findAll" resultMap="CourseMap">
+        select id, name, begin_time, duration, member_limit, subject_id
+        from lesson limit 10
+    </select>
+</mapper>

@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: gbcs-subject
+  #数据源，即数据库连接池
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/gcbs2025?characterEncoding=utf-8&serverTimeZone=asia/shanghai
+  #redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 123456
+      database: 0
+      connect-timeout: 3s
+      timeout: 2s
+
+server:
+  port: 9000
+
+#配置mybatis
+mybatis-plus:
+  configuration:
+    log-prefix: mybatis.
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    #是否开启延迟加载
+    lazy-loading-enabled: true
+    #是否开启二级缓存
+    cache-enabled: false
+  #可以使用简称（别名）的包
+  type-aliases-package: com.situ.gbcssubject.model
+  #放置动态sql文件的包
+  mapper-locations: classpath:/mapper/**/*.xml
+
+

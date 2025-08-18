@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.gbcssubject.dao.SubjectMapper">
+    <cache type="org.mybatis.caches.caffeine.CaffeineCache" />
+
+    <select id="findAll" resultType="Subject" useCache="false">
+        select id,name,summary,detail,description from subject
+        <where>
+            <if test="id!=null">
+                and id = #{id}
+            </if>
+            <if test="name!=null and name!=''">
+                <bind name="n1" value="'%'+name+'%'"/>
+                and `name` like #{n1}
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" resultType="Subject" useCache="true">
+        select id,name,summary,detail,description from subject
+        where id = #{id}
+    </select>
+
+    <!--保存-->
+    <insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id" flushCache="true">
+        insert into subject (name, summary, detail, description)
+        values (#{name}, #{summary}, #{detail}, #{description})
+    </insert>
+
+    <!--修改-->
+    <update id="update" flushCache="true">
+        update subject
+        set `name`      = #{name},
+            summary     = #{summary},
+            detail      = #{detail},
+            description = #{description}
+        where id = #{id}
+    </update>
+
+    <!--批量删除-->
+    <delete id="deleteByIds" flushCache="true">
+        delete from subject where id in
+        <foreach collection="ids" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
