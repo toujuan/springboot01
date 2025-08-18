@@ -1,0 +1,14 @@
+spring缓存基于spring aop
+1.引入依赖。
+
+2.启动redis。
+
+3.在application.yml中对redis进行配置。
+
+4.在主启动类或配置类上添加@EnableCaching注解。
+
+5.在业务类添加相关缓存注解。
+@CacheConfig
+@Cachable
+@CacheEvict
+@CachePut
